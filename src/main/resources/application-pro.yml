@@ -1,0 +1,15 @@
+server:
+  port: 8888
+
+# JDBC 配置(驱动类自动从url的mysql识别,数据源类型自动识别)
+spring:
+  datasource:
+    username: root
+    password: 123456
+    url: jdbc:mysql://47.116.18.108:3306/hotel?useUnicode=true&characterEncoding=UTF-8&useSSL=false
+    driver-class-name: com.mysql.jdbc.Driver
+    # 切换数据源
+    type: com.alibaba.druid.pool.DruidDataSource
+ #   schema:
+   #   - classpath:user.sql
+#      - classpath:

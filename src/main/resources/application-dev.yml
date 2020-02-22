@@ -1,0 +1,12 @@
+server:
+  port: 8079
+
+# JDBC 配置(驱动类自动从url的mysql识别,数据源类型自动识别)
+spring:
+  datasource:
+    username: root
+    password: root
+    url: jdbc:mysql://127.0.0.1:3306/hotel?useUnicode=true&characterEncoding=UTF-8&useSSL=false
+    driver-class-name: com.mysql.jdbc.Driver
+    # 切换数据源
+    type: com.alibaba.druid.pool.DruidDataSource

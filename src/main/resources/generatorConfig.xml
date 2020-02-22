@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+
+	<context id="DB2Tables" targetRuntime="MyBatis3">
+
+		<!-- 生成的Java文件的编码 -->
+		<property name="javaFileEncoding" value="utf-8" />
+		<!-- 格式化java代码 -->
+		<property name="javaFormatter" value="org.mybatis.generator.api.dom.DefaultJavaFormatter"/>
+		<!-- 格式化XML代码 -->
+		<property name="xmlFormatter" value="org.mybatis.generator.api.dom.DefaultXmlFormatter"/>
+		<plugin type="org.mybatis.generator.plugins.SerializablePlugin" />
+		<plugin type="org.mybatis.generator.plugins.ToStringPlugin" />
+
+		<!-- 注释 -->
+		<commentGenerator >
+			<property name="suppressAllComments" value="true"/><!-- 是否取消注释 -->
+			<property name="suppressDate" value="false" /> <!-- 是否生成注释代时间戳-->
+		</commentGenerator>
+
+		<!-- 配置数据库连接信息 -->
+		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
+			connectionURL="jdbc:mysql://localhost:3306/hotel?useSSL=false"
+			userId="root"
+			password="root">
+		</jdbcConnection>
+
+		<!-- 类型转换 -->
+		<javaTypeResolver>
+			<!-- 是否使用bigDecimal， false可自动转化以下类型（Long, Integer, Short, etc.） -->
+			<property name="forceBigDecimals" value="false"/>
+		</javaTypeResolver>
+
+
+		<!-- 指定javaBean生成的位置 -->
+		<javaModelGenerator
+			targetPackage="com.lhl.hotelweb.entity" targetProject=".\src\main\java">
+			<property name="enableSubPackages" value="true" />
+			<property name="trimStrings" value="true" />
+		</javaModelGenerator>
+
+		<!-- 指定sql映射文件生成的位置 -->
+		<sqlMapGenerator targetPackage="mapper"
+			targetProject=".\src\main\resources">
+			<property name="enableSubPackages" value="true" />
+		</sqlMapGenerator>
+
+		<!-- 指定dao接口生成的位置，mapper接口 -->
+		<javaClientGenerator type="XMLMAPPER"
+							 targetPackage="com.lhl.hotelweb.dao" targetProject=".\src\main\java">
+			<property name="enableSubPackages" value="true" />
+		</javaClientGenerator>
+
+		<!-- 指定每个表的生成策略 -->
+		<!-- <table schema="DB2ADMIN" tableName="ALLTYPES" domainObjectName="Customer"> 
+			<property name="useActualColumnNames" value="true" /> <generatedKey column="ID" 
+			sqlStatement="DB2" identity="true" /> <columnOverride column="DATE_FIELD" 
+			property="startDate" /> <ignoreColumn column="FRED" /> <columnOverride column="LONG_VARCHAR_FIELD" 
+			jdbcType="VARCHAR" /> </table> -->
+
+
+		<!-- table可以有多个,每个数据库中的表都可以写一个table，tableName表示要匹配的数据库表,也可以在tableName属性中通过使用%通配符来匹配所有数据库表,只有匹配的表才会自动生成文件 -->
+		<!--如果想生成一个表则tableName="table_name"-->
+		<!--<table tableName="tb_users"
+			   enableCountByExample="true"
+			   enableUpdateByExample="true"
+			   enableDeleteByExample="true"
+			   enableSelectByExample="true"
+			   selectByExampleQueryId="true">
+			<property name="useActualColumnNames" value="false" />-->
+
+			<!-- 数据库表主键 -->
+			<!--<generatedKey column="id" sqlStatement="Mysql" identity="true" />
+		</table>-->
+
+		<table tableName="user" domainObjectName="User"></table>
+		<!--<table tableName="tbl_dept" domainObjectName="Department"></table>-->
+
+	</context>
+</generatorConfiguration>
