@@ -3,6 +3,8 @@
 
 #.gitignore
 target
+
+src/main/resources/application-pro.properties
 .idea
 *.iml
 *.log
