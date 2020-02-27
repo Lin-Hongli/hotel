@@ -28,15 +28,18 @@
     <link rel="stylesheet" type="text/css" href="../static/css/style.css">
 
     <!--[if lt IE 9]>
-        <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-        <script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
     <![endif]-->
     <script type="text/javascript" src="../static/js/jquery-3.4.1.js"></script>
 </head>
 
-<!--[if IE 7]> <body class="ie7 lt-ie8 lt-ie9 lt-ie10"> <![endif]-->
-<!--[if IE 8]> <body class="ie8 lt-ie9 lt-ie10"> <![endif]-->
-<!--[if IE 9]> <body class="ie9 lt-ie10"> <![endif]-->
+<!--[if IE 7]>
+<body class="ie7 lt-ie8 lt-ie9 lt-ie10"> <![endif]-->
+<!--[if IE 8]>
+<body class="ie8 lt-ie9 lt-ie10"> <![endif]-->
+<!--[if IE 9]>
+<body class="ie9 lt-ie10"> <![endif]-->
 <!--[if (gt IE 9)|!(IE)]><!-->
 <body> <!--<![endif]-->
 
@@ -62,28 +65,30 @@
                 </div>
 
 
-
                 <!-- 登录模态框 -->
                 <div th:id="loginModel" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                        aria-hidden="true">&times;</span></button>
                                 <h4 class="modal-title" id="myModalLabel">登录</h4>
                             </div>
                             <div class="modal-body">
                                 <!--登录表单-->
-                                <form th:id="login_form"  class="form-horizontal">
+                                <form th:id="login_form" class="form-horizontal">
                                     <div class="form-group">
                                         <label for="loginAccount_input" class="col-sm-2 control-label">账号</label>
                                         <div class="col-sm-6">
-                                            <input id="loginAccount_input" name="account" type="text" class="form-control" placeholder="请输入账号">
+                                            <input id="loginAccount_input" name="account" type="text"
+                                                   class="form-control" placeholder="请输入账号">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="loginPassword_input" class="col-sm-2 control-label">密码</label>
                                         <div class="col-sm-6">
-                                            <input id="loginPassword_input" name="password" type="password" class="form-control" placeholder="请输入密码">
+                                            <input id="loginPassword_input" name="password" type="password"
+                                                   class="form-control" placeholder="请输入密码">
                                         </div>
                                     </div>
                                     <p th:id="login_faild_msg" class="col-sm-offset-3 col-sm-6" style="color: red"></p>
@@ -98,12 +103,14 @@
                                     </div>
                                     <div class="form-group">
                                         <div class="col-sm-offset-2 col-sm-6">
-                                            <button th:id="login_btn" type="button" class="btn btn-primary btn-lg btn-block">登录</button>
+                                            <button th:id="login_btn" type="button"
+                                                    class="btn btn-primary btn-lg btn-block">登录
+                                            </button>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <div class="col-sm-offset-2 col-sm-6">
-                                           <a th:href="@{${gitHubAuthorizeURL}}">GitHub登录</a>
+                                            <a th:href="@{https://github.com/login/oauth/authorize(client_id=${clientId},redirect_uri=${redirectURI},scope='user',state=${state})}">GitHub登录</a>
                                         </div>
                                     </div>
                                 </form>
@@ -117,20 +124,24 @@
                 </div>
 
                 <!-- 注册模态框 -->
-                <div th:id="registerModel" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div th:id="registerModel" class="modal fade" tabindex="-1" role="dialog"
+                     aria-labelledby="myModalLabel">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                        aria-hidden="true">&times;</span></button>
                                 <h4 class="modal-title" th:id="myModalLabel">注册</h4>
                             </div>
                             <div class="modal-body">
                                 <!--注册-->
-                                <form th:id="register_form"  class="form-horizontal">
+                                <form th:id="register_form" class="form-horizontal">
                                     <div class="form-group has-success">
                                         <label for="register_userName_input" class="col-sm-2 control-label">用户名</label>
                                         <div class="col-sm-6">
-                                            <input id="register_userName_input" name="username" type="text" class="form-control" placeholder="请输入昵称"  aria-describedby="username_exist_msg">
+                                            <input id="register_userName_input" name="username" type="text"
+                                                   class="form-control" placeholder="请输入昵称"
+                                                   aria-describedby="username_exist_msg">
                                             <span id="username_check_msg" class="help-block"></span>
                                         </div>
                                     </div>
@@ -138,50 +149,63 @@
                                     <div class="form-group">
                                         <label for="register_account_input" class="col-sm-2 control-label">账号</label>
                                         <div class="col-sm-6">
-                                            <input id="register_account_input" name="account" type="text" class="form-control" placeholder="请输入账号" aria-describedby="account_check_msg">
+                                            <input id="register_account_input" name="account" type="text"
+                                                   class="form-control" placeholder="请输入账号"
+                                                   aria-describedby="account_check_msg">
                                             <span id="account_check_msg" class="help-block"></span>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="register_password_input" class="col-sm-2 control-label">密码</label>
                                         <div class="col-sm-6">
-                                            <input id="register_password_input" name="password" type="password" class="form-control" placeholder="请输入密码">
+                                            <input id="register_password_input" name="password" type="password"
+                                                   class="form-control" placeholder="请输入密码">
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="register_confirmPassword_input" class="col-sm-2 control-label">确认密码</label>
+                                        <label for="register_confirmPassword_input"
+                                               class="col-sm-2 control-label">确认密码</label>
                                         <div class="col-sm-6">
-                                            <input id="register_confirmPassword_input" name="confirmPassword" type="password" class="form-control" placeholder="请再次输入密码">
+                                            <input id="register_confirmPassword_input" name="confirmPassword"
+                                                   type="password" class="form-control" placeholder="请再次输入密码">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label">性别</label>
                                         <div class="col-sm-10">
                                             <label class="radio-inline">
-                                                <input name="sex" th:id="gender1_register_input" th:value="0" type="radio">男
+                                                <input name="sex" th:id="gender1_register_input" th:value="0"
+                                                       type="radio">男
                                             </label>
                                             <label class="radio-inline">
-                                                <input name="sex" th:id="gender2_register_input" th:value="1" type="radio" checked="checked">女
+                                                <input name="sex" th:id="gender2_register_input" th:value="1"
+                                                       type="radio" checked="checked">女
                                             </label>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="register_email_input" class="col-sm-2 control-label">邮箱</label>
                                         <div class="col-sm-6">
-                                            <input id="register_email_input" name="email" type="password" class="form-control" placeholder="请再次输入邮箱" aria-describedby="email_check_msg">
+                                            <input id="register_email_input" name="email" type="password"
+                                                   class="form-control" placeholder="请再次输入邮箱"
+                                                   aria-describedby="email_check_msg">
                                             <span id="email_check_msg" class="help-block"></span>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="register_tel_input" class="col-sm-2 control-label">电话</label>
                                         <div class="col-sm-6">
-                                            <input id="register_tel_input" name="tel" type="password" class="form-control" placeholder="请再次输入手机号码" aria-describedby="tel_check_msg">
+                                            <input id="register_tel_input" name="tel" type="password"
+                                                   class="form-control" placeholder="请再次输入手机号码"
+                                                   aria-describedby="tel_check_msg">
                                             <span id="tel_check_msg" class="help-block"></span>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <div class="col-sm-offset-2 col-sm-6">
-                                            <button th:id="register_btn" type="button" class="btn btn-primary btn-lg btn-block">注册</button>
+                                            <button th:id="register_btn" type="button"
+                                                    class="btn btn-primary btn-lg btn-block">注册
+                                            </button>
                                         </div>
                                     </div>
                                 </form>
@@ -195,27 +219,27 @@
                 </div>
 
                 <div class="header_right float-right">
-                        <span class="login-register">
-                            <a th:id="login_modal_btn">登录</a>
-                            <a th:id="register_modal_btn">注册</a>
-                        </span>
-                    <div class="dropdown currency">
-                        <span>USD <i class="fa fa"></i></span>
-                        <ul>
-                            <li class="active"><a href="#">USD</a></li>
-                            <li><a href="#">EUR</a></li>
-                        </ul>
-                    </div>
+                    <span class="login-register" th:if="${session.user == null}">
+                        <a th:id="login_modal_btn">登录</a>
+                        <a th:id="register_modal_btn">注册</a>
+                    </span>
 
+                    <!--国际化-->
                     <div class="dropdown language">
-                        <span>ENG</span>
-
+                        <span>语言</span>
                         <ul>
                             <li class="active"><a href="#">中文</a></li>
                             <li><a href="#">ENG</a></li>
                         </ul>
                     </div>
 
+                    <div class="dropdown" th:if="${session.user!=null}">
+                        <span th:text="${session.user.getName()}"></span>
+                        <ul>
+                            <li class=""><a href="#">个人资料</a></li>
+                            <li><a href="/logout">退出登录</a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
@@ -631,14 +655,23 @@
                                 Avalon's leading hotels with gracious island hospitality, thoughtful amenities and
                                 distinctive .</p>
                             <ul>
-                                <li><img src="../static/images/home/ourbest/icon-3.png" alt="icon">250 Best Rooms 5 Star</li>
-                                <li><img src="../static/images/home/ourbest/icon-2.png" alt="icon">Wet Bar with Refrigerator</li>
-                                <li><img src="../static/images/home/ourbest/icon-4.png" alt="icon">Double Whirlpool Jacuzzi Tub
+                                <li><img src="../static/images/home/ourbest/icon-3.png" alt="icon">250 Best Rooms 5 Star
                                 </li>
-                                <li><img src="../static/images/home/ourbest/icon-5.png" alt="icon">Luxurious High Thread Count
+                                <li><img src="../static/images/home/ourbest/icon-2.png" alt="icon">Wet Bar with
+                                    Refrigerator
                                 </li>
-                                <li><img src="../static/images/home/ourbest/icon-1.png" alt="icon">Breakfast each morning</li>
-                                <li><img src="../static/images/home/ourbest/icon-6.png" alt="icon">Ocean Views to lotus Hotel</li>
+                                <li><img src="../static/images/home/ourbest/icon-4.png" alt="icon">Double Whirlpool
+                                    Jacuzzi Tub
+                                </li>
+                                <li><img src="../static/images/home/ourbest/icon-5.png" alt="icon">Luxurious High Thread
+                                    Count
+                                </li>
+                                <li><img src="../static/images/home/ourbest/icon-1.png" alt="icon">Breakfast each
+                                    morning
+                                </li>
+                                <li><img src="../static/images/home/ourbest/icon-6.png" alt="icon">Ocean Views to lotus
+                                    Hotel
+                                </li>
                             </ul>
                         </div>
                     </div>

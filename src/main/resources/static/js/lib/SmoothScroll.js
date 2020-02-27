@@ -253,6 +253,7 @@
      * Mouse wheel handler.
      * @param {Object} event
      */
+
     function wheel(event) {
 
         if (!initDone) {
@@ -296,7 +297,6 @@
         scrollArray(overflowing, -deltaX, -deltaY);
         event.preventDefault();
     }
-
     /**
      * Keydown event handler.
      * @param {Object} event

@@ -9,9 +9,6 @@ public class WebController {
 
     @GetMapping("/hello")
     public String webController(){
-        return "hello world";
+        return "<h1>hello world</h1>";
     }
-
-
-
 }

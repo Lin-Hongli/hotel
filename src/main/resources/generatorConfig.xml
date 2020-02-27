@@ -13,20 +13,27 @@
 		<property name="javaFormatter" value="org.mybatis.generator.api.dom.DefaultJavaFormatter"/>
 		<!-- 格式化XML代码 -->
 		<property name="xmlFormatter" value="org.mybatis.generator.api.dom.DefaultXmlFormatter"/>
+
+		<!--这两个不知道干什么用？？？-->
 		<plugin type="org.mybatis.generator.plugins.SerializablePlugin" />
 		<plugin type="org.mybatis.generator.plugins.ToStringPlugin" />
 
+		<!-- 覆盖生成XML文件-->
+		<plugin type="org.mybatis.generator.plugins.UnmergeableXmlMappersPlugin"/>
+
 		<!-- 注释 -->
-		<commentGenerator >
+		<commentGenerator>
 			<property name="suppressAllComments" value="true"/><!-- 是否取消注释 -->
-			<property name="suppressDate" value="false" /> <!-- 是否生成注释代时间戳-->
+			<property name="suppressDate" value="false" /><!-- 是否生成注释带时间戳-->
 		</commentGenerator>
 
 		<!-- 配置数据库连接信息 -->
 		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
-			connectionURL="jdbc:mysql://localhost:3306/hotel?useSSL=false"
-			userId="root"
-			password="root">
+						connectionURL="jdbc:mysql://127.0.0.1:3306/hotel?serverTimezone=UTC&amp;useUnicode=true&amp;characterEncoding=UTF-8&amp;useSSL=false"
+						userId="root"
+						password="root">
+			<!--生成主键操作-->
+			<property name="nullCatalogMeansCurrent" value="true"/>
 		</jdbcConnection>
 
 		<!-- 类型转换 -->
@@ -35,33 +42,42 @@
 			<property name="forceBigDecimals" value="false"/>
 		</javaTypeResolver>
 
-
-		<!-- 指定javaBean生成的位置 -->
+		<!-- 指定Model生成的位置 -->
 		<javaModelGenerator
-			targetPackage="com.lhl.hotelweb.entity" targetProject=".\src\main\java">
-			<property name="enableSubPackages" value="true" />
-			<property name="trimStrings" value="true" />
+				targetPackage="com.lhl.hotelweb.model" targetProject=".\src\main\java">
+			<property name="enableSubPackages" value="true" /><!--自动创建包-->
+			<property name="trimStrings" value="true" /><!--去除空格？-->
 		</javaModelGenerator>
 
-		<!-- 指定sql映射文件生成的位置 -->
-		<sqlMapGenerator targetPackage="mapper"
-			targetProject=".\src\main\resources">
+		<!-- 指定sql映射文件mapper.xml生成的位置 -->
+		<sqlMapGenerator
+				targetPackage="mapper" targetProject=".\src\main\resources">
 			<property name="enableSubPackages" value="true" />
 		</sqlMapGenerator>
 
 		<!-- 指定dao接口生成的位置，mapper接口 -->
 		<javaClientGenerator type="XMLMAPPER"
-							 targetPackage="com.lhl.hotelweb.dao" targetProject=".\src\main\java">
+				 targetPackage="com.lhl.hotelweb.dao" targetProject=".\src\main\java">
 			<property name="enableSubPackages" value="true" />
 		</javaClientGenerator>
 
-		<!-- 指定每个表的生成策略 -->
-		<!-- <table schema="DB2ADMIN" tableName="ALLTYPES" domainObjectName="Customer"> 
-			<property name="useActualColumnNames" value="true" /> <generatedKey column="ID" 
-			sqlStatement="DB2" identity="true" /> <columnOverride column="DATE_FIELD" 
-			property="startDate" /> <ignoreColumn column="FRED" /> <columnOverride column="LONG_VARCHAR_FIELD" 
-			jdbcType="VARCHAR" /> </table> -->
+		<!--table对应的Model名-->
+		<table tableName="user" domainObjectName="User"></table>
+		<!--<table tableName="tbl_dept" domainObjectName="Department"></table>-->
 
+
+
+
+
+
+
+
+		<!-- 指定每个表的生成策略 -->
+		<!-- <table schema="DB2ADMIN" tableName="ALLTYPES" domainObjectName="Customer">
+			<property name="useActualColumnNames" value="true" /> <generatedKey column="ID"
+			sqlStatement="DB2" identity="true" /> <columnOverride column="DATE_FIELD"
+			property="startDate" /> <ignoreColumn column="FRED" /> <columnOverride column="LONG_VARCHAR_FIELD"
+			jdbcType="VARCHAR" /> </table> -->
 
 		<!-- table可以有多个,每个数据库中的表都可以写一个table，tableName表示要匹配的数据库表,也可以在tableName属性中通过使用%通配符来匹配所有数据库表,只有匹配的表才会自动生成文件 -->
 		<!--如果想生成一个表则tableName="table_name"-->
@@ -73,12 +89,9 @@
 			   selectByExampleQueryId="true">
 			<property name="useActualColumnNames" value="false" />-->
 
-			<!-- 数据库表主键 -->
-			<!--<generatedKey column="id" sqlStatement="Mysql" identity="true" />
-		</table>-->
-
-		<table tableName="user" domainObjectName="User"></table>
-		<!--<table tableName="tbl_dept" domainObjectName="Department"></table>-->
+		<!-- 数据库表主键 -->
+		<!--<generatedKey column="id" sqlStatement="Mysql" identity="true" />
+    </table>-->
 
 	</context>
 </generatorConfiguration>

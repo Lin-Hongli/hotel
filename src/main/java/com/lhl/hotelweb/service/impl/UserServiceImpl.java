@@ -1,8 +1,8 @@
-package com.lhl.hotelweb.impl;
+package com.lhl.hotelweb.service.impl;
 
 import com.lhl.hotelweb.dao.UserMapper;
-import com.lhl.hotelweb.entity.User;
-import com.lhl.hotelweb.entity.UserExample;
+import com.lhl.hotelweb.model.User;
+import com.lhl.hotelweb.model.UserExample;
 import com.lhl.hotelweb.service.UserService;
 import com.lhl.hotelweb.util.Msg;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,11 +19,13 @@ public class UserServiceImpl implements UserService {
     @Autowired
     UserMapper userMapper;
 
+
+
     @Override
     public Msg userLogin(String account, String password) {
         UserExample userExample=new UserExample();
         UserExample.Criteria criteria =userExample.createCriteria();
-        criteria.andAccountEqualTo(account);
+        criteria.andAccountIdEqualTo(account);
         long l = userMapper.countByExample(userExample);
         System.out.println("count:"+l);
         if (l==1){
@@ -52,11 +54,11 @@ public class UserServiceImpl implements UserService {
 
         userExample.clear();
         /*生成一个新的Criteria对象*/
-        userExample.or().andUsernameEqualTo(user.getUsername());
+        userExample.or().andNameEqualTo(user.getName());
         long countUsername = userMapper.countByExample(userExample);
 
         userExample.clear();
-        userExample.or().andAccountEqualTo(user.getAccount());
+        userExample.or().andAccountIdEqualTo(user.getAccountId());
         long countAccount = userMapper.countByExample(userExample);
 
         userExample.clear();

@@ -3,13 +3,12 @@ package com.lhl.hotelweb.provider;
 import com.alibaba.fastjson.JSON;
 import com.lhl.hotelweb.dto.GitHubAccessTokenDTO;
 import com.lhl.hotelweb.dto.GitHubUser;
+import com.lhl.hotelweb.exception.CustomizeErrorCode;
+import com.lhl.hotelweb.exception.CustomizeException;
 import okhttp3.*;
-import org.apache.el.stream.Stream;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
-import java.io.OutputStream;
-import java.io.PrintStream;
 
 @Component
 public class GitHubProvider {
@@ -32,15 +31,15 @@ public class GitHubProvider {
         //发送post请求获取到access_token
         try (Response response = client.newCall(request).execute()) {
             String accessToken = response.body().string();
-            System.out.println(accessToken);
-            //access_token=6410e9f583f5f58c3c2c0xxxxxxxxxxxxx&scope=user&token_type=bearer
+            System.out.println("执行getAccessToken"+accessToken);
             return accessToken;
         } catch (Exception e) {
-            e.printStackTrace();
+            //访问超时或其他情况抛异常
+            throw new CustomizeException("GitHub授权失败！国外服务器网络可能较差，再登录试试？");
         }
 
-        //如果抛异常或其他情况return null
-        return null;
+
+
     }
 
     //调用github的access_token API发送Get请求获取用户信息
@@ -57,11 +56,18 @@ public class GitHubProvider {
             String userJson = response.body().string();
             //解析json数据，封装用户信息
             GitHubUser gitHubUser = JSON.parseObject(userJson, GitHubUser.class);
+
+            //若网络差等获取信息异常，即获取不到用户名，返回空
+            System.out.println("gitHubUser.getName()"+gitHubUser.getName());
+            if(gitHubUser.getName()==null){
+                throw new CustomizeException("GitHub获取用户信息失败！国外服务器网络可能较差，再登录试试？");
+            }
+
             return gitHubUser;
         } catch (IOException e) {
+            System.out.println("执行getGitHubUser失败，抛异常");
+            //请求API异常，跳转错误页面，提示登录失败,这里没有执行/callback请求
+            throw new CustomizeException("GitHub登录失败！国外服务器网络可能较差，再登录试试？");
         }
-
-        //如果抛异常或其他情况return null
-        return new GitHubUser();
     }
 }

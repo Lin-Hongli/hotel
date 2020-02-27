@@ -9,6 +9,6 @@ public class InitConfig {
 
     @PostConstruct
     public void inits(){
-        System.out.println("初始化方法");
+        /*System.out.println("初始化方法");*/
     }
 }

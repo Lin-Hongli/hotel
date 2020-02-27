@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lhl.hotelweb.dao.UserMapper">
-  <resultMap id="BaseResultMap" type="com.lhl.hotelweb.entity.User">
+  <resultMap id="BaseResultMap" type="com.lhl.hotelweb.model.User">
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="username" jdbcType="VARCHAR" property="username" />
-    <result column="account" jdbcType="VARCHAR" property="account" />
-    <result column="password" jdbcType="VARCHAR" property="password" />
-    <result column="sex" jdbcType="VARCHAR" property="sex" />
-    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="account_id" jdbcType="VARCHAR" property="accountId" />
+    <result column="token" jdbcType="CHAR" property="token" />
+    <result column="gmt_create" jdbcType="BIGINT" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="BIGINT" property="gmtModified" />
     <result column="tel" jdbcType="VARCHAR" property="tel" />
+    <result column="sex" jdbcType="VARCHAR" property="sex" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -69,9 +72,9 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, username, account, password, sex, email, tel
+    id, name, account_id, token, gmt_create, gmt_modified, tel, sex, password, email
   </sql>
-  <select id="selectByExample" parameterType="com.lhl.hotelweb.entity.UserExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.lhl.hotelweb.model.UserExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -95,70 +98,90 @@
     delete from user
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.lhl.hotelweb.entity.UserExample">
+  <delete id="deleteByExample" parameterType="com.lhl.hotelweb.model.UserExample">
     delete from user
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.lhl.hotelweb.entity.User">
-    insert into user (id, username, account, 
-      password, sex, email, 
-      tel)
-    values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{account,jdbcType=VARCHAR}, 
-      #{password,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
-      #{tel,jdbcType=VARCHAR})
+  <insert id="insert" parameterType="com.lhl.hotelweb.model.User">
+    insert into user (id, name, account_id, 
+      token, gmt_create, gmt_modified, 
+      tel, sex, password, 
+      email)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{accountId,jdbcType=VARCHAR}, 
+      #{token,jdbcType=CHAR}, #{gmtCreate,jdbcType=BIGINT}, #{gmtModified,jdbcType=BIGINT}, 
+      #{tel,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{email,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.lhl.hotelweb.entity.User">
+  <insert id="insertSelective" parameterType="com.lhl.hotelweb.model.User">
     insert into user
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
       </if>
-      <if test="username != null">
-        username,
+      <if test="name != null">
+        name,
       </if>
-      <if test="account != null">
-        account,
+      <if test="accountId != null">
+        account_id,
       </if>
-      <if test="password != null">
-        password,
+      <if test="token != null">
+        token,
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create,
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified,
+      </if>
+      <if test="tel != null">
+        tel,
       </if>
       <if test="sex != null">
         sex,
       </if>
+      <if test="password != null">
+        password,
+      </if>
       <if test="email != null">
         email,
-      </if>
-      <if test="tel != null">
-        tel,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="username != null">
-        #{username,jdbcType=VARCHAR},
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
       </if>
-      <if test="account != null">
-        #{account,jdbcType=VARCHAR},
+      <if test="accountId != null">
+        #{accountId,jdbcType=VARCHAR},
       </if>
-      <if test="password != null">
-        #{password,jdbcType=VARCHAR},
+      <if test="token != null">
+        #{token,jdbcType=CHAR},
       </if>
-      <if test="sex != null">
-        #{sex,jdbcType=VARCHAR},
+      <if test="gmtCreate != null">
+        #{gmtCreate,jdbcType=BIGINT},
       </if>
-      <if test="email != null">
-        #{email,jdbcType=VARCHAR},
+      <if test="gmtModified != null">
+        #{gmtModified,jdbcType=BIGINT},
       </if>
       <if test="tel != null">
         #{tel,jdbcType=VARCHAR},
       </if>
+      <if test="sex != null">
+        #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.lhl.hotelweb.entity.UserExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="com.lhl.hotelweb.model.UserExample" resultType="java.lang.Long">
     select count(*) from user
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -170,23 +193,32 @@
       <if test="record.id != null">
         id = #{record.id,jdbcType=INTEGER},
       </if>
-      <if test="record.username != null">
-        username = #{record.username,jdbcType=VARCHAR},
+      <if test="record.name != null">
+        name = #{record.name,jdbcType=VARCHAR},
       </if>
-      <if test="record.account != null">
-        account = #{record.account,jdbcType=VARCHAR},
+      <if test="record.accountId != null">
+        account_id = #{record.accountId,jdbcType=VARCHAR},
       </if>
-      <if test="record.password != null">
-        password = #{record.password,jdbcType=VARCHAR},
+      <if test="record.token != null">
+        token = #{record.token,jdbcType=CHAR},
+      </if>
+      <if test="record.gmtCreate != null">
+        gmt_create = #{record.gmtCreate,jdbcType=BIGINT},
+      </if>
+      <if test="record.gmtModified != null">
+        gmt_modified = #{record.gmtModified,jdbcType=BIGINT},
+      </if>
+      <if test="record.tel != null">
+        tel = #{record.tel,jdbcType=VARCHAR},
       </if>
       <if test="record.sex != null">
         sex = #{record.sex,jdbcType=VARCHAR},
       </if>
+      <if test="record.password != null">
+        password = #{record.password,jdbcType=VARCHAR},
+      </if>
       <if test="record.email != null">
         email = #{record.email,jdbcType=VARCHAR},
-      </if>
-      <if test="record.tel != null">
-        tel = #{record.tel,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null">
@@ -196,48 +228,63 @@
   <update id="updateByExample" parameterType="map">
     update user
     set id = #{record.id,jdbcType=INTEGER},
-      username = #{record.username,jdbcType=VARCHAR},
-      account = #{record.account,jdbcType=VARCHAR},
-      password = #{record.password,jdbcType=VARCHAR},
+      name = #{record.name,jdbcType=VARCHAR},
+      account_id = #{record.accountId,jdbcType=VARCHAR},
+      token = #{record.token,jdbcType=CHAR},
+      gmt_create = #{record.gmtCreate,jdbcType=BIGINT},
+      gmt_modified = #{record.gmtModified,jdbcType=BIGINT},
+      tel = #{record.tel,jdbcType=VARCHAR},
       sex = #{record.sex,jdbcType=VARCHAR},
-      email = #{record.email,jdbcType=VARCHAR},
-      tel = #{record.tel,jdbcType=VARCHAR}
+      password = #{record.password,jdbcType=VARCHAR},
+      email = #{record.email,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.lhl.hotelweb.entity.User">
+  <update id="updateByPrimaryKeySelective" parameterType="com.lhl.hotelweb.model.User">
     update user
     <set>
-      <if test="username != null">
-        username = #{username,jdbcType=VARCHAR},
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
       </if>
-      <if test="account != null">
-        account = #{account,jdbcType=VARCHAR},
+      <if test="accountId != null">
+        account_id = #{accountId,jdbcType=VARCHAR},
       </if>
-      <if test="password != null">
-        password = #{password,jdbcType=VARCHAR},
+      <if test="token != null">
+        token = #{token,jdbcType=CHAR},
       </if>
-      <if test="sex != null">
-        sex = #{sex,jdbcType=VARCHAR},
+      <if test="gmtCreate != null">
+        gmt_create = #{gmtCreate,jdbcType=BIGINT},
       </if>
-      <if test="email != null">
-        email = #{email,jdbcType=VARCHAR},
+      <if test="gmtModified != null">
+        gmt_modified = #{gmtModified,jdbcType=BIGINT},
       </if>
       <if test="tel != null">
         tel = #{tel,jdbcType=VARCHAR},
       </if>
+      <if test="sex != null">
+        sex = #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.lhl.hotelweb.entity.User">
+  <update id="updateByPrimaryKey" parameterType="com.lhl.hotelweb.model.User">
     update user
-    set username = #{username,jdbcType=VARCHAR},
-      account = #{account,jdbcType=VARCHAR},
-      password = #{password,jdbcType=VARCHAR},
+    set name = #{name,jdbcType=VARCHAR},
+      account_id = #{accountId,jdbcType=VARCHAR},
+      token = #{token,jdbcType=CHAR},
+      gmt_create = #{gmtCreate,jdbcType=BIGINT},
+      gmt_modified = #{gmtModified,jdbcType=BIGINT},
+      tel = #{tel,jdbcType=VARCHAR},
       sex = #{sex,jdbcType=VARCHAR},
-      email = #{email,jdbcType=VARCHAR},
-      tel = #{tel,jdbcType=VARCHAR}
+      password = #{password,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

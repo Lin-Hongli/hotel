@@ -64,8 +64,9 @@
         <dependency>
             <groupId>org.mybatis.generator</groupId>
             <artifactId>mybatis-generator-core</artifactId>
-            <version>1.3.7</version>
+            <version>1.4.0</version>
         </dependency>
+
 
         <!--springboot整个mybatis-->
         <!-- https://mvnrepository.com/artifact/org.mybatis.spring.boot/mybatis-spring-boot-starter -->
@@ -151,7 +152,7 @@
             <plugin>
                 <groupId>org.mybatis.generator</groupId>
                 <artifactId>mybatis-generator-maven-plugin</artifactId>
-                <version>1.3.5</version>
+                <!--<version>1.3.5</version>-->
                 <configuration>
                     <!--此处是配置文件的位置-->
                     <configurationFile>src/main/resources/generatorConfig.xml</configurationFile>

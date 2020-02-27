@@ -1,8 +1,9 @@
 package com.lhl.hotelweb.controller;
 
 
-import com.lhl.hotelweb.entity.User;
-import com.lhl.hotelweb.impl.UserServiceImpl;
+
+import com.lhl.hotelweb.model.User;
+import com.lhl.hotelweb.service.impl.UserServiceImpl;
 import com.lhl.hotelweb.util.Msg;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -44,10 +45,4 @@ public class UserController {
         return msg;
     }
 
-
-    @GetMapping("/test")
-    public String test(){
-        System.out.println("a");
-        return "test";
-    }
 }

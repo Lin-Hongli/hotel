@@ -1,7 +1,7 @@
 package com.lhl.hotelweb.dao;
 
-import com.lhl.hotelweb.entity.User;
-import com.lhl.hotelweb.entity.UserExample;
+import com.lhl.hotelweb.model.User;
+import com.lhl.hotelweb.model.UserExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
